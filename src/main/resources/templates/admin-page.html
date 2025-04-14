@@ -33,15 +33,10 @@
             <td th:text="${user.age}"></td>
             <td th:text="${user.roles}"></td>
             <td>
-                <div th:if="${#lists.contains(#strings.listJoin(user.roles, ','), 'role_admin')}">
-                    <span class="text-muted">Невозможно</span>
-                </div>
-                <div th:if="${!#lists.contains(#strings.listJoin(user.roles, ','), 'role_admin')}">
-                    <a th:href="@{/admin/edit(id=${user.id})}" class="btn btn-success">Редактировать</a>
-                    <form th:action="@{/admin/delete(id=${user.id})}" method="post" style="display: inline;">
-                        <button type="submit" class="btn btn-danger">Удалить</button>
-                    </form>
-                </div>
+                <a th:href="@{/admin/edit(id=${user.id})}" class="btn btn-success">Редактировать</a>
+                <form th:action="@{/admin/delete(id=${user.id})}" method="post" style="display: inline;">
+                    <button type="submit" class="btn btn-danger">Удалить</button>
+                </form>
             </td>
         </tr>
         </tbody>

@@ -19,7 +19,7 @@ public class RoleServiceImpl implements RoleService {
         this.roleRepository = roleRepository;
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public Optional<Role> findByRole(String role) {
         return roleRepository.findByName(role);
@@ -31,13 +31,13 @@ public class RoleServiceImpl implements RoleService {
         return roleRepository.save(role);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public List<Role> getAllRoles() {
         return roleRepository.findAll();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public List<Role> findById(List<Long> rolesId) {
         return roleRepository.findAllById(rolesId);

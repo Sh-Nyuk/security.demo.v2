@@ -44,11 +44,6 @@ public class PersonServiceImpl implements PersonService {
     public void updatePerson(Person person, List<Long> rolesId) {
         Person personToUpdate = personRepository.findById(person.getId()).orElse(null);
 
-        if (personToUpdate != null && personToUpdate.getRoles().stream()
-                .anyMatch(role -> role.getName().equals("ROLE_ADMIN"))) {
-            throw new IllegalStateException("You can't update an admin person");
-        }
-
         personToUpdate.setAge(person.getAge());
         personToUpdate.setEmail(person.getEmail());
         personToUpdate.setUsername(person.getUsername());
@@ -82,19 +77,19 @@ public class PersonServiceImpl implements PersonService {
         personRepository.delete(person);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public List<Person> getAllPersons() {
         return personRepository.findAll();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public Person findById(Long id) {
         return personRepository.findById(id).orElseThrow(() -> new IllegalStateException("Person not found"));
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public Person findByUsername(String username) {
         return personRepository.findByUsername(username)

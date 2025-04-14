@@ -19,7 +19,7 @@ public class PersonDetailsService implements UserDetailsService {
         this.personRepository = personRepository;
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Person person = personRepository.findByUsername(username)
