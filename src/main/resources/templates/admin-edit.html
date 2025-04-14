@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Редактирование пользователя</title>
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+  <h1>Пользователь</h1>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Имя</th>
+      <th>Email</th>
+      <th>Возраст</th>
+      <th>Роли</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td th:text="${user.id}"></td>
+      <td th:text="${user.username}"></td>
+      <td th:text="${user.email}"></td>
+      <td th:text="${user.age}"></td>
+      <td th:text="${user.roles}"></td>
+    </tr>
+    </tbody>
+  </table>
+  <h2 class="mt-5">Редактировать</h2>
+  <form th:action="@{/admin/edit}" method="post" class="flex-column align-items-start mt-3" style="max-width: 400px;">
+    <input type="hidden" th:name="id" th:value="${user.id}"/>
+    <div class="form-group mb-3">
+      <label for="username" class="form-label mb-2">Имя</label>
+      <input type="text" class="form-control" id="username" name="username" required>
+    </div>
+    <div class="form-group mb-3">
+      <label for="email" class="form-label mb-2">Email</label>
+      <input type="email" class="form-control" id="email" name="email" required>
+    </div>
+    <div class="form-group mb-3">
+      <label for="age" class="form-label mb-2">Возраст</label>
+      <input type="number" class="form-control" id="age" name="age" required>
+    </div>
+    <div class="form-group mb-3">
+      <label class="form-label mb-2">Роли:</label><br/>
+      <div th:each="role : ${roles}" class="form-check mb-2">
+        <input type="checkbox"
+               name="rolesId"
+               th:value="${role.id}"
+               th:id="${'role_' + role.id}"
+               class="form-check-input"/>
+        <label th:for="${'role_' + role.id}" th:text="${role.name}" class="form-check-label"></label>
+      </div>
+    </div>
+    <div class="form-group w-100 mt-4 text-center">
+      <button type="submit" class="btn btn-primary">Редактировать пользователя</button>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>
